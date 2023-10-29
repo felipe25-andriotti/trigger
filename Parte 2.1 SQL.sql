@@ -1,0 +1,18 @@
+
+CREATE TABLE Filmes (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(200),
+    minutos INT
+);
+
+DELIMITER $
+
+CREATE TRIGGER check_minutos BEFORE INSERT ON Filmes
+FOR EACH ROW
+BEGIN
+    IF NEW.minutos < 0 THEN
+        SET NEW.minutos = NULL;
+    END IF;
+END$
+
+DELIMITER ;
